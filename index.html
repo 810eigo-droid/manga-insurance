@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f7f3ec">
+<title>1000万円の保険金 受取の経緯</title>
+<meta name="description" content="静香おばさんからの養老保険1000万円。受取に至るまでの経緯を漫画にしました。">
+
+<!-- Open Graph (SNS共有用) -->
+<meta property="og:title" content="1000万円の保険金 受取の経緯">
+<meta property="og:description" content="2015年から2026年までの10年間の経緯を時系列で振り返ります。">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f5efe4;
+    --bg-deep: #ede5d3;
+    --paper-line: #e0d6bf;
+    --ink: #1f1a14;
+    --ink-soft: #4a4138;
+    --ink-mute: #7a6f5f;
+    --accent: #6b2c2c;
+    --accent-soft: #8b4444;
+    --shadow: rgba(60, 40, 20, 0.12);
+    --max-width: 680px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 38px,
+        rgba(180, 150, 100, 0.04) 38px,
+        rgba(180, 150, 100, 0.04) 39px
+      ),
+      radial-gradient(ellipse at top, var(--bg) 0%, var(--bg-deep) 100%);
+    color: var(--ink);
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== Reading Progress Bar ===== */
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(0,0,0,0.06);
+    z-index: 100;
+  }
+  .progress__fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.1s ease-out;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(245, 239, 228, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--paper-line);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header__title {
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  .menu-btn {
+    background: transparent;
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-family: "Noto Serif JP", serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .menu-btn:hover, .menu-btn:active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  /* ===== Cover ===== */
+  .cover {
+    min-height: 90vh;
+    padding: 80px 24px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid var(--paper-line);
+    position: relative;
+  }
+
+  .cover__year {
+    font-family: "Noto Serif JP", serif;
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    color: var(--ink-mute);
+    margin-bottom: 32px;
+    padding: 6px 18px;
+    border: 1px solid var(--paper-line);
+    border-radius: 2px;
+  }
+
+  .cover__title {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 900;
+    font-size: clamp(28px, 7vw, 44px);
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+  }
+
+  .cover__amount {
+    font-family: "Noto Serif JP", serif;
+    font-size: clamp(48px, 12vw, 72px);
+    font-weight: 900;
+    color: var(--accent);
+    margin: 20px 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .cover__amount-unit {
+    font-size: 0.5em;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin-left: 4px;
+  }
+
+  .cover__sub {
+    font-family: "Noto Serif JP", serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 2;
+    margin-top: 40px;
+    max-width: 480px;
+  }
+
+  .cover__chapters-count {
+    margin-top: 56px;
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.15em;
+  }
+
+  .cover__scroll-hint {
+    margin-top: 40px;
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.2em;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+
+  /* ===== Chapter Container ===== */
+  .chapters {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .chapter {
+    padding: 80px 0 40px;
+    border-bottom: 1px dashed var(--paper-line);
+  }
+  .chapter:last-child {
+    border-bottom: none;
+  }
+
+  .chapter__label {
+    text-align: center;
+    font-family: "Noto Serif JP", serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: var(--ink-mute);
+    margin-bottom: 12px;
+  }
+
+  .chapter__title {
+    text-align: center;
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: clamp(22px, 5vw, 30px);
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.4;
+    padding: 0 20px;
+  }
+
+  .chapter__date {
+    text-align: center;
+    font-family: "Noto Serif JP", serif;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 36px;
+    letter-spacing: 0.1em;
+  }
+
+  .chapter__image-wrap {
+    background: #fff;
+    box-shadow: 0 4px 24px var(--shadow);
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .chapter__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Placeholder (画像読み込み前 or 未配置時) */
+  .chapter__image-wrap--placeholder {
+    aspect-ratio: 3 / 5;
+    background: linear-gradient(135deg, #f8f3e6 0%, #ebe2cc 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--ink-mute);
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    padding: 40px;
+    text-align: center;
+    line-height: 2;
+  }
+  .chapter__image-wrap--placeholder::before {
+    content: "📖";
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.4;
+  }
+
+  /* ===== Ending ===== */
+  .ending {
+    padding: 100px 24px 80px;
+    text-align: center;
+    border-top: 1px solid var(--paper-line);
+    margin-top: 60px;
+  }
+  .ending__mark {
+    font-family: "Noto Serif JP", serif;
+    font-size: 13px;
+    letter-spacing: 0.5em;
+    color: var(--ink-mute);
+    margin-bottom: 24px;
+  }
+  .ending__note {
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 2.2;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ===== Chapter Menu Overlay ===== */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(31, 26, 20, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+  }
+  .menu-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-panel {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 32px 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .menu-panel__title {
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--ink-mute);
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--paper-line);
+  }
+
+  .menu-list {
+    list-style: none;
+  }
+  .menu-list__item {
+    border-bottom: 1px dashed var(--paper-line);
+  }
+  .menu-list__item:last-child { border-bottom: none; }
+
+  .menu-list__link {
+    display: block;
+    padding: 16px 4px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding 0.2s, color 0.2s;
+  }
+  .menu-list__link:hover, .menu-list__link:active {
+    padding-left: 12px;
+    color: var(--accent);
+  }
+  .menu-list__num {
+    font-family: "Noto Serif JP", serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-mute);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .menu-list__name {
+    font-family: "Noto Serif JP", serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .menu-list__date {
+    font-size: 12px;
+    color: var(--accent-soft);
+    margin-top: 2px;
+  }
+
+  .menu-close {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    font-family: "Noto Serif JP", serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+  }
+
+  /* ===== Back to top button ===== */
+  .to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.2s;
+    z-index: 40;
+    font-size: 18px;
+  }
+  .to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  .to-top:hover, .to-top:active {
+    transform: translateY(-2px);
+  }
+
+  /* ===== Responsive tweaks ===== */
+  @media (min-width: 700px) {
+    .chapter {
+      padding: 100px 0 60px;
+    }
+    .chapter__image-wrap {
+      border-radius: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header { padding: 10px 16px; }
+    .cover { padding: 60px 20px 40px; }
+  }
+
+  /* ===== Animation on scroll ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- Reading progress -->
+<div class="progress" aria-hidden="true">
+  <div class="progress__fill" id="progressFill"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header__title">保険金1000万円・受取の経緯</div>
+  <button class="menu-btn" id="menuBtn" aria-label="目次を開く">目次</button>
+</header>
+
+<!-- Cover -->
+<section class="cover">
+  <div class="cover__year">2015 — 2026</div>
+  <h1 class="cover__title">1000万円の保険金<br>受取の経緯</h1>
+  <div class="cover__amount">
+    1000<span class="cover__amount-unit">万円</span>
+  </div>
+  <p class="cover__sub">
+    静香おばさんからの養老保険。<br>
+    10年の歳月と、家族の善意と、誤解と。<br>
+    そのすべてを、ここに残します。
+  </p>
+  <div class="cover__chapters-count">全 6 章</div>
+  <div class="cover__scroll-hint">↓ SCROLL</div>
+</section>
+
+<!-- Chapters -->
+<main class="chapters">
+
+  <!-- Chapter 1 -->
+  <section class="chapter fade-in" id="ch1">
+    <div class="chapter__label">第 一 章</div>
+    <h2 class="chapter__title">保険のはじまり</h2>
+    <div class="chapter__date">2015年6月 — 7月</div>
+    <div class="chapter__image-wrap">
+      <img class="chapter__image"
+           src="images/ch01-hajimari.webp"
+           alt="第1章 保険のはじまり"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('chapter__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += '第1章の画像は<br>images/ch01-hajimari.webp<br>に配置してください';">
+    </div>
+  </section>
+
+  <!-- Chapter 2 -->
+  <section class="chapter fade-in" id="ch2">
+    <div class="chapter__label">第 二 章</div>
+    <h2 class="chapter__title">名義変更</h2>
+    <div class="chapter__date">2022年5月</div>
+    <div class="chapter__image-wrap">
+      <img class="chapter__image"
+           src="images/ch02-meigi-henkou.webp"
+           alt="第2章 名義変更"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('chapter__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += '第2章の画像は<br>images/ch02-meigi-henkou.webp<br>に配置してください';">
+    </div>
+  </section>
+
+  <!-- Chapter 3 -->
+  <section class="chapter fade-in" id="ch3">
+    <div class="chapter__label">第 三 章</div>
+    <h2 class="chapter__title">誤解の発生</h2>
+    <div class="chapter__date">2024年9月 — 10月</div>
+    <div class="chapter__image-wrap">
+      <img class="chapter__image"
+           src="images/ch03-gokai.webp"
+           alt="第3章 誤解の発生"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('chapter__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += '第3章の画像は<br>images/ch03-gokai.webp<br>に配置してください';">
+    </div>
+  </section>
+
+  <!-- Chapter 4 -->
+  <section class="chapter fade-in" id="ch4">
+    <div class="chapter__label">第 四 章</div>
+    <h2 class="chapter__title">名義を戻す</h2>
+    <div class="chapter__date">2025年4月 — 6月</div>
+    <div class="chapter__image-wrap">
+      <img class="chapter__image"
+           src="images/ch04-modosu.webp"
+           alt="第4章 名義を戻す"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('chapter__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += '第4章の画像は<br>images/ch04-modosu.webp<br>に配置してください';">
+    </div>
+  </section>
+
+  <!-- Chapter 5 -->
+  <section class="chapter fade-in" id="ch5">
+    <div class="chapter__label">第 五 章</div>
+    <h2 class="chapter__title">静香おばさんの死と手続き</h2>
+    <div class="chapter__date">2025年10月 — 11月</div>
+    <div class="chapter__image-wrap">
+      <img class="chapter__image"
+           src="images/ch05-tetsuduki.webp"
+           alt="第5章 静香おばさんの死と手続き"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('chapter__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += '第5章の画像は<br>images/ch05-tetsuduki.webp<br>に配置してください';">
+    </div>
+  </section>
+
+  <!-- Chapter 6 -->
+  <section class="chapter fade-in" id="ch6">
+    <div class="chapter__label">第 六 章</div>
+    <h2 class="chapter__title">利文兄さんとの会話、振り返り</h2>
+    <div class="chapter__date">2026年2月 —</div>
+    <div class="chapter__image-wrap">
+      <img class="chapter__image"
+           src="images/ch06-furikaeri.webp"
+           alt="第6章 利文兄さんとの会話、振り返り"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('chapter__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += '第6章の画像は<br>images/ch06-furikaeri.webp<br>に配置してください';">
+    </div>
+  </section>
+
+</main>
+
+<!-- Ending -->
+<section class="ending">
+  <div class="ending__mark">— 完 —</div>
+  <p class="ending__note">
+    この保険は静香おばさんに2015年から<br>
+    毎年かけていただいていた保険で、<br>
+    その時から約10年が経ちました。<br>
+    静香おばさんの善意に、深く感謝いたします。
+  </p>
+</section>
+
+<!-- Chapter Menu Overlay -->
+<div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+  <div class="menu-panel">
+    <div class="menu-panel__title" id="menuTitle">目 次</div>
+    <ul class="menu-list">
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="#ch1" data-jump>
+          <span class="menu-list__num">第 一 章</span>
+          <span class="menu-list__name">保険のはじまり</span>
+          <span class="menu-list__date">2015年6月 — 7月</span>
+        </a>
+      </li>
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="#ch2" data-jump>
+          <span class="menu-list__num">第 二 章</span>
+          <span class="menu-list__name">名義変更</span>
+          <span class="menu-list__date">2022年5月</span>
+        </a>
+      </li>
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="#ch3" data-jump>
+          <span class="menu-list__num">第 三 章</span>
+          <span class="menu-list__name">誤解の発生</span>
+          <span class="menu-list__date">2024年9月 — 10月</span>
+        </a>
+      </li>
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="#ch4" data-jump>
+          <span class="menu-list__num">第 四 章</span>
+          <span class="menu-list__name">名義を戻す</span>
+          <span class="menu-list__date">2025年4月 — 6月</span>
+        </a>
+      </li>
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="#ch5" data-jump>
+          <span class="menu-list__num">第 五 章</span>
+          <span class="menu-list__name">静香おばさんの死と手続き</span>
+          <span class="menu-list__date">2025年10月 — 11月</span>
+        </a>
+      </li>
+      <li class="menu-list__item">
+        <a class="menu-list__link" href="#ch6" data-jump>
+          <span class="menu-list__num">第 六 章</span>
+          <span class="menu-list__name">利文兄さんとの会話、振り返り</span>
+          <span class="menu-list__date">2026年2月 —</span>
+        </a>
+      </li>
+    </ul>
+    <button class="menu-close" id="menuClose">閉 じ る</button>
+  </div>
+</div>
+
+<!-- Back to Top -->
+<button class="to-top" id="toTop" aria-label="トップへ戻る">↑</button>
+
+<script>
+  // ===== Reading progress =====
+  const progressFill = document.getElementById('progressFill');
+  const toTopBtn = document.getElementById('toTop');
+
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressFill.style.width = percent + '%';
+
+    if (scrollTop > 600) {
+      toTopBtn.classList.add('is-visible');
+    } else {
+      toTopBtn.classList.remove('is-visible');
+    }
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ===== Chapter menu =====
+  const menuBtn = document.getElementById('menuBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const menuClose = document.getElementById('menuClose');
+
+  function openMenu() {
+    menuOverlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    menuOverlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  menuClose.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', (e) => {
+    if (e.target === menuOverlay) closeMenu();
+  });
+  document.querySelectorAll('[data-jump]').forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(closeMenu, 200);
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // ===== Back to top =====
+  toTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ===== Fade-in on scroll =====
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+
+  fadeEls.forEach(el => io.observe(el));
+
+  // Initial progress
+  updateProgress();
+</script>
+
+</body>
+</html>
