@@ -100,70 +100,383 @@
     font-size: 13px; color: var(--ink-mute); letter-spacing: 0.15em;
   }
 
-  /* ===== Hero ===== */
+  /* ===== Hero (Editorial Cover) ===== */
   .hero {
-    padding: 70px 24px 60px;
-    text-align: center;
-    border-bottom: 1px solid var(--paper-line);
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 24px 120px;
     overflow: hidden;
+    background:
+      radial-gradient(ellipse 800px 600px at 15% 20%, rgba(107, 44, 44, 0.08), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 85% 80%, rgba(45, 66, 89, 0.08), transparent 60%),
+      radial-gradient(ellipse 500px 400px at 50% 50%, rgba(160, 120, 66, 0.05), transparent 70%),
+      linear-gradient(170deg, #f5efe4 0%, #ede0c8 50%, #e8dabc 100%);
+    border-bottom: 1px solid var(--paper-line);
   }
-  .hero::before {
-    content: ""; position: absolute; inset: 0;
+
+  /* Background grid (paper feel) */
+  .hero__grid {
+    position: absolute; inset: 0;
     background-image:
-      radial-gradient(circle at 20% 30%, rgba(107, 44, 44, 0.04), transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(45, 66, 89, 0.04), transparent 40%);
+      linear-gradient(rgba(107, 44, 44, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(107, 44, 44, 0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0;
+    pointer-events: none;
+    animation: hero-grid-in 2s ease-out 0.3s forwards;
+  }
+  @keyframes hero-grid-in { to { opacity: 1; } }
+
+  /* Floating soft blobs */
+  .hero__blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0;
     pointer-events: none;
   }
-  .hero__date {
-    display: inline-block;
-    font-family: "Shippori Mincho", serif;
-    font-size: 14px; letter-spacing: 0.4em;
-    color: var(--ink-mute);
-    padding: 6px 18px;
-    border: 1px solid var(--paper-line);
-    border-radius: 2px;
-    margin-bottom: 36px;
+  .hero__blob--1 {
+    width: 480px; height: 480px;
+    top: -120px; left: -120px;
+    background: radial-gradient(circle, rgba(107, 44, 44, 0.4), transparent 70%);
+    animation: hero-blob-in 2.5s ease-out 0.5s forwards, hero-blob-1 22s ease-in-out infinite 2.5s;
   }
+  .hero__blob--2 {
+    width: 560px; height: 560px;
+    bottom: -180px; right: -180px;
+    background: radial-gradient(circle, rgba(45, 66, 89, 0.35), transparent 70%);
+    animation: hero-blob-in 2.5s ease-out 0.8s forwards, hero-blob-2 28s ease-in-out infinite 2.5s;
+  }
+  .hero__blob--3 {
+    width: 360px; height: 360px;
+    top: 50%; left: 65%;
+    background: radial-gradient(circle, rgba(160, 120, 66, 0.25), transparent 70%);
+    animation: hero-blob-in 2.5s ease-out 1.1s forwards, hero-blob-3 20s ease-in-out infinite 2.5s;
+  }
+  @keyframes hero-blob-in { to { opacity: 1; } }
+  @keyframes hero-blob-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(80px, 100px) scale(1.1); }
+  }
+  @keyframes hero-blob-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-100px, -80px) scale(0.95); }
+  }
+  @keyframes hero-blob-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-60px, 60px) scale(1.05); }
+  }
+
+  /* Background giant year typography (decorative) */
+  .hero__bg-years {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+    padding: 60px 0;
+    overflow: hidden;
+  }
+  .hero__bg-year {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 900;
+    font-size: clamp(80px, 16vw, 200px);
+    color: rgba(107, 44, 44, 0.05);
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    white-space: nowrap;
+    opacity: 0;
+    animation: hero-yr-in 1.5s ease-out forwards;
+  }
+  .hero__bg-year--start { align-self: flex-start; padding-left: -2vw; transform: translateX(-10%); animation-delay: 1.6s; }
+  .hero__bg-year--end { align-self: flex-end; padding-right: -2vw; transform: translateX(10%); animation-delay: 1.9s; }
+  @keyframes hero-yr-in { to { opacity: 1; } }
+
+  /* Corner stamp (top right) */
+  .hero__stamp {
+    position: absolute;
+    top: 32px; right: 32px;
+    text-align: right;
+    z-index: 3;
+    opacity: 0;
+    animation: hero-stamp-in 0.8s ease-out 0.4s forwards;
+  }
+  .hero__stamp-date {
+    font-family: "Shippori Mincho", serif;
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .hero__stamp-label {
+    font-family: "Shippori Mincho", serif;
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 0.4em;
+  }
+  @keyframes hero-stamp-in {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Corner stamp (top left - document number) */
+  .hero__doc {
+    position: absolute;
+    top: 32px; left: 32px;
+    text-align: left;
+    z-index: 3;
+    opacity: 0;
+    animation: hero-stamp-in 0.8s ease-out 0.4s forwards;
+  }
+  .hero__doc-num {
+    font-family: "Shippori Mincho", serif;
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 0.4em;
+    margin-bottom: 4px;
+  }
+  .hero__doc-title {
+    font-family: "Shippori Mincho", serif;
+    font-size: 13px;
+    color: var(--ink);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+
+  /* Hero content (above bg) */
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 760px;
+    width: 100%;
+  }
+
+  /* Eyebrow */
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: hero-fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+  }
+  .hero__eyebrow-line {
+    width: 40px;
+    height: 1px;
+    background: var(--ink-mute);
+  }
+  .hero__eyebrow-text {
+    font-family: "Shippori Mincho", serif;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.45em;
+    font-weight: 700;
+  }
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Title - staggered line reveal */
   .hero__title {
     font-family: "Shippori Mincho", serif;
     font-weight: 900;
-    font-size: clamp(26px, 6.5vw, 44px);
-    line-height: 1.4;
+    font-size: clamp(26px, 6.2vw, 46px);
+    line-height: 1.5;
     color: var(--ink);
-    margin-bottom: 28px;
-    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
   }
-  .hero__amount {
+  .hero__title-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(28px);
+    animation: hero-line-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero__title-line:nth-child(1) { animation-delay: 0.9s; }
+  .hero__title-line:nth-child(2) { animation-delay: 1.1s; }
+  .hero__title-line:nth-child(3) { animation-delay: 1.3s; }
+  .hero__title-line:nth-child(4) { animation-delay: 1.5s; }
+  @keyframes hero-line-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Decorative seal */
+  .hero__seal {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 84px;
+    height: 84px;
+    background: linear-gradient(135deg, var(--accent) 0%, #8b3a3a 100%);
+    color: white;
     font-family: "Shippori Mincho", serif;
-    font-size: clamp(56px, 14vw, 96px);
     font-weight: 900;
-    color: var(--accent);
-    line-height: 1;
-    margin: 30px 0 8px;
-    letter-spacing: -0.02em;
-    animation: amount-glow 4s ease-in-out infinite;
+    font-size: 38px;
+    border-radius: 8px;
+    margin: 32px 0 28px;
+    transform: rotate(-4deg) scale(0);
+    opacity: 0;
+    animation: hero-seal-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s forwards;
+    box-shadow: 0 10px 36px rgba(107, 44, 44, 0.35), inset 0 0 0 2px rgba(255,255,255,0.15);
+    letter-spacing: 0;
   }
-  .hero__amount-unit { font-size: 0.4em; color: var(--ink-soft); font-weight: 700; margin-left: 6px; }
-  .hero__sub {
+  .hero__seal::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border: 1.5px solid var(--accent);
+    border-radius: 11px;
+    opacity: 0.4;
+  }
+  .hero__seal::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 4px;
+  }
+  @keyframes hero-seal-in {
+    to { opacity: 1; transform: rotate(-4deg) scale(1); }
+  }
+
+  /* Amount with count-up */
+  .hero__amount-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin: 16px 0 36px;
+    opacity: 0;
+    animation: hero-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2.0s forwards;
+  }
+  .hero__amount-currency {
     font-family: "Shippori Mincho", serif;
-    font-size: 16px; color: var(--ink-soft);
-    letter-spacing: 0.1em; margin-top: 8px;
+    font-size: clamp(28px, 7vw, 50px);
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
   }
-  @keyframes amount-glow {
-    0%, 100% { text-shadow: 0 2px 8px rgba(107, 44, 44, 0.15); }
-    50% { text-shadow: 0 2px 24px rgba(107, 44, 44, 0.3); }
+  .hero__amount-number {
+    font-family: "Shippori Mincho", serif;
+    font-size: clamp(64px, 16vw, 124px);
+    color: var(--accent);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-shadow: 0 4px 32px rgba(107, 44, 44, 0.25);
+    min-width: 2ch;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
   }
-  .hero__scroll-hint {
-    margin-top: 36px;
-    font-size: 11px;
+  .hero__amount-unit {
+    font-family: "Shippori Mincho", serif;
+    font-size: clamp(20px, 5vw, 34px);
+    color: var(--ink-soft);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Years range */
+  .hero__years {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(217, 205, 180, 0.6);
+    border-radius: 100px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: hero-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2.3s forwards;
+    margin-bottom: 12px;
+  }
+  .hero__year-start, .hero__year-end {
+    font-family: "Shippori Mincho", serif;
+    font-size: clamp(18px, 3.5vw, 24px);
+    font-weight: 900;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .hero__year-arrow {
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--ink-mute);
+    position: relative;
+  }
+  .hero__year-arrow::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid var(--ink-mute);
+    border-top: 1px solid var(--ink-mute);
+    rotate: 45deg;
+  }
+  .hero__year-duration {
+    font-family: "Shippori Mincho", serif;
+    font-size: 12px;
     color: var(--ink-mute);
-    letter-spacing: 0.2em;
-    animation: bounce 2s infinite;
+    letter-spacing: 0.25em;
+    padding-left: 14px;
+    border-left: 1px solid var(--ink-faint);
+    line-height: 1;
   }
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); opacity: 0.6; }
-    50% { transform: translateY(6px); opacity: 1; }
+
+  /* Scroll indicator */
+  .hero__scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+    opacity: 0;
+    animation: hero-fade-up 0.9s ease-out 2.6s forwards;
+  }
+  .hero__scroll-text {
+    font-family: "Shippori Mincho", serif;
+    font-size: 10px;
+    color: var(--ink-mute);
+    letter-spacing: 0.4em;
+    font-weight: 700;
+  }
+  .hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: rgba(74, 65, 56, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero__scroll-line::after {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--accent));
+    animation: hero-scroll-dot 2.2s ease-in-out infinite;
+  }
+  @keyframes hero-scroll-dot {
+    0% { top: -40%; }
+    100% { top: 100%; }
   }
 
   /* ===== Container ===== */
@@ -207,6 +520,70 @@
     max-width: 460px;
     margin: 0 auto;
     line-height: 2;
+  }
+
+  /* ===== Manga Cover (表紙) ===== */
+  .manga-cover {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 30px 20px 20px;
+    position: relative;
+  }
+  .manga-cover__inner {
+    position: relative;
+  }
+  .manga-cover__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-family: "Shippori Mincho", serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    padding: 6px 18px 6px 22px;
+    border-radius: 100px;
+    box-shadow: 0 4px 14px rgba(107, 44, 44, 0.3);
+    z-index: 3;
+    white-space: nowrap;
+  }
+  .manga-cover__image-wrap {
+    background: #fff;
+    box-shadow: 0 8px 36px rgba(60, 40, 20, 0.18);
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    border-radius: 6px;
+    border: 1px solid var(--paper-line);
+  }
+  .manga-cover__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .manga-cover__caption {
+    text-align: center;
+    margin-top: 18px;
+    font-family: "Shippori Mincho", serif;
+    font-size: 13px;
+    color: var(--ink-mute);
+    letter-spacing: 0.3em;
+  }
+  /* Placeholder if cover not uploaded yet */
+  .manga-cover__image-wrap--placeholder {
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, #f8f3e6 0%, #ebe2cc 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    color: var(--ink-mute);
+    font-family: "Shippori Mincho", serif;
+    font-size: 16px; padding: 40px;
+    text-align: center; line-height: 2;
+  }
+  .manga-cover__image-wrap--placeholder::before {
+    content: "📖"; font-size: 56px; margin-bottom: 20px; opacity: 0.4;
   }
 
   /* ===== Manga Chapters ===== */
@@ -877,7 +1254,18 @@
     .header__brand-mark { width: 30px; height: 30px; font-size: 15px; }
     .header__title { font-size: 13px; }
     .header__date { font-size: 11px; }
-    .hero { padding: 50px 20px 40px; }
+    .hero { padding: 80px 20px 100px; min-height: 90vh; }
+    .hero__stamp { top: 16px; right: 16px; }
+    .hero__stamp-date { font-size: 12px; }
+    .hero__stamp-label { font-size: 9px; }
+    .hero__doc { top: 16px; left: 16px; }
+    .hero__doc-num { font-size: 9px; }
+    .hero__doc-title { font-size: 11px; }
+    .hero__seal { width: 70px; height: 70px; font-size: 32px; }
+    .hero__years { padding: 10px 18px; gap: 10px; }
+    .hero__year-arrow { width: 24px; }
+    .hero__year-duration { font-size: 10px; padding-left: 10px; }
+    .hero__scroll { bottom: 20px; }
     .timeline::before { left: 22px; }
     .era-marker { padding-left: 60px; }
     .era-marker__badge { width: 50px; height: 50px; font-size: 14px; }
@@ -918,16 +1306,66 @@
 </header>
 
 <!-- ============================== -->
-<!-- HERO                            -->
+<!-- HERO (Editorial Cover)          -->
 <!-- ============================== -->
 <section class="hero">
-  <div class="hero__date">2 0 2 6 年 5 月 1 1 日</div>
-  <h1 class="hero__title">1000万円の（養老）保険を<br>受取るにいたった経緯の説明</h1>
-  <div class="hero__amount">
-    1,000<span class="hero__amount-unit">万円</span>
+  <!-- Background layers -->
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__blob hero__blob--1" aria-hidden="true"></div>
+  <div class="hero__blob hero__blob--2" aria-hidden="true"></div>
+  <div class="hero__blob hero__blob--3" aria-hidden="true"></div>
+  <div class="hero__bg-years" aria-hidden="true">
+    <div class="hero__bg-year hero__bg-year--start">2015</div>
+    <div class="hero__bg-year hero__bg-year--end">2026</div>
   </div>
-  <div class="hero__sub">2 0 1 5 — 2 0 2 6　 約 1 0 年 間 の 記 録</div>
-  <div class="hero__scroll-hint">↓ SCROLL</div>
+
+  <!-- Corner markers -->
+  <div class="hero__doc">
+    <div class="hero__doc-num">N o . 0 1</div>
+    <div class="hero__doc-title">保険金 受取 記録</div>
+  </div>
+  <div class="hero__stamp">
+    <div class="hero__stamp-date">2 0 2 6 . 0 5 . 1 1</div>
+    <div class="hero__stamp-label">記 録 日</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="hero__content">
+
+    <div class="hero__eyebrow">
+      <span class="hero__eyebrow-line"></span>
+      <span class="hero__eyebrow-text">A　D O C U M E N T A R Y　R E C O R D</span>
+      <span class="hero__eyebrow-line"></span>
+    </div>
+
+    <h1 class="hero__title">
+      <span class="hero__title-line">1000万円の（養老）保険を</span>
+      <span class="hero__title-line">受取るにいたった</span>
+      <span class="hero__title-line">経 緯 の 説 明</span>
+    </h1>
+
+    <div class="hero__seal" aria-label="経の印">経</div>
+
+    <div class="hero__amount-wrap">
+      <span class="hero__amount-currency">¥</span>
+      <span class="hero__amount-number" id="amountNumber" data-target="1000">0</span>
+      <span class="hero__amount-unit">万円</span>
+    </div>
+
+    <div class="hero__years">
+      <span class="hero__year-start">2015</span>
+      <span class="hero__year-arrow"></span>
+      <span class="hero__year-end">2026</span>
+      <span class="hero__year-duration">約 10 年 間 の 記 録</span>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero__scroll">
+    <div class="hero__scroll-text">S C R O L L</div>
+    <div class="hero__scroll-line"></div>
+  </div>
 </section>
 
 <!-- ============================== -->
@@ -941,6 +1379,20 @@
   <p class="section-divider__desc">
     まずは10年間の出来事を、<br>全6章の漫画でご覧ください。
   </p>
+</div>
+
+<!-- Manga Cover -->
+<div class="manga-cover fade-in" id="manga-cover">
+  <div class="manga-cover__inner">
+    <div class="manga-cover__badge">C O V E R</div>
+    <div class="manga-cover__image-wrap">
+      <img class="manga-cover__image"
+           src="images/cover.webp"
+           alt="漫画 表紙 — 1000万円の保険金 受取の経緯"
+           onerror="this.parentElement.classList.add('manga-cover__image-wrap--placeholder'); this.style.display='none'; this.parentElement.innerHTML += 'カバー画像は<br>images/cover.webp<br>に配置してください';">
+    </div>
+  </div>
+  <div class="manga-cover__caption">— 表 紙 —</div>
 </div>
 
 <main class="chapters">
@@ -1035,7 +1487,7 @@
   <div class="section-divider__line"></div>
   <p class="section-divider__desc">
     時系列に沿った詳しい記録です。<br>
-    発言と出来事をできる限り残しています。
+    すべての発言と出来事を漏らさず残しています。
   </p>
 </div>
 
@@ -1060,7 +1512,7 @@
       <div class="cast__card fade-in">
         <div class="cast__avatar cast__avatar--main">仁</div>
         <div>
-          <div class="cast__name">仁昭（よしあき）</div>
+          <div class="cast__name">仁昭（にあき）</div>
           <div class="cast__role">本人・語り手<br>飲食店経営／被保険者</div>
         </div>
       </div>
@@ -1578,6 +2030,15 @@
       <div class="menu-section__label">第 一 部 ・ 漫 画</div>
       <ul class="menu-list">
         <li class="menu-list__item menu-list__item--manga">
+          <a class="menu-list__link" href="#manga-cover" data-jump>
+            <div class="menu-list__num">表</div>
+            <div class="menu-list__content">
+              <div class="menu-list__name">表紙（カバー）</div>
+              <div class="menu-list__date">COVER</div>
+            </div>
+          </a>
+        </li>
+        <li class="menu-list__item menu-list__item--manga">
           <a class="menu-list__link" href="#ch1" data-jump>
             <div class="menu-list__num">一</div>
             <div class="menu-list__content">
@@ -1760,6 +2221,31 @@
   toTopBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  // ===== Hero amount count-up =====
+  const amountEl = document.getElementById('amountNumber');
+  if (amountEl) {
+    const target = parseInt(amountEl.dataset.target, 10) || 1000;
+    const duration = 1800;
+    const startDelay = 2100;
+    setTimeout(() => {
+      const startTime = performance.now();
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(eased * target);
+        amountEl.textContent = value.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          amountEl.textContent = target.toLocaleString();
+        }
+      }
+      requestAnimationFrame(step);
+    }, startDelay);
+  }
 
   // ===== Fade-in observer =====
   const fadeEls = document.querySelectorAll('.fade-in');
